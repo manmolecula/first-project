@@ -1,6 +1,7 @@
 let n = -3;
 let m = -10
 
+
 let range = Math.abs(n - m);
 let min = Math.min(n, m)
 
