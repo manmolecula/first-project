@@ -6,4 +6,5 @@ let y2 = 1;
 let thirdSpotx = Math.abs(x1-x2);
 let thirdSpoty = Math.abs(y1-y2);
 
+
 console.log(thirdSpotx*thirdSpoty);
