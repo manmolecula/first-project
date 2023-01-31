@@ -83,7 +83,10 @@
                })
                todoItem.deleteButton.addEventListener('click', function(){
                    if(confirm('Вы уверены?')){
-                       todoItem.item.remove()
+                       todoItem.item.remove();
+                       if (data !== null && data !== '') {
+                        itemList = JSON.parse(data);
+                    }
                    }
                })
                 if(item.done){
@@ -95,8 +98,8 @@
         let itemList = [];
          if (data !== null && data !== '') {
             itemList = JSON.parse(data);
-            for (const item of itemList) {
-                let todoItem = createToDoItem(item);
+            for (let i = 0;i<itemList.length; i++) {
+                let todoItem = createToDoItem(itemList[i]);
                 todoList.append(todoItem.item);
                 todoItem.doneButton.addEventListener('click', function(){
                     todoItem.item.classList.toggle('list-group-item-success');
@@ -104,7 +107,7 @@
                 todoItem.deleteButton.addEventListener('click', function(){
                     if(confirm('Вы уверены?')){
                         todoItem.item.remove();
-                        itemList.pop();
+                        itemList.splice(i, 1);
                         localStorage.setItem(key, JSON.stringify(itemList));
                     };
                 });
@@ -118,10 +121,13 @@
             localStorage.setItem(key, JSON.stringify(itemList));
             todoItem.doneButton.addEventListener('click', function() {
                 todoItem.item.classList.toggle('list-group-item-success');
-            });
+            }); for (let i = 0;i<itemList.length; i++) {
             todoItem.deleteButton.addEventListener('click', function() {
                 if(confirm('Вы уверены?')) todoItem.item.remove();
-            });
+                itemList.splice(i, 1);
+                localStorage.setItem(key, JSON.stringify(itemList));
+            })
+        };
             todoList.append(todoItem.item);
             todoItemForm.input.value = '';
             todoItemForm.button.disabled=true;
