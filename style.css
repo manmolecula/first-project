@@ -1,0 +1,19 @@
+.row{
+  display: flex;
+  font-size: 150px;
+}
+.card{
+  margin-left: 50px;
+  margin-top: 40px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #007bff;
+  width: 227px;
+  text-align: center;
+}
+.white{
+  color: white;
+}
+.green{
+  background-color: green;
+}
