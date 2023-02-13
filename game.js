@@ -5,6 +5,19 @@ let counter = 2;
 let win;
 let beforeNumber;
 let beforeTarget;
+const time = 60000;
+let timerTime = time;
+let timer;
+
+function startTimer() {
+    timerTime--;
+    if (timerTime<= 0) {timer = clearInterval(timer); alert ('Время кончилось!');document.getElementById('div').innerHTML = '';}
+  }
+
+  function onClick() {
+    timer = clearInterval(timer);
+    timer = setInterval(startTimer, 1000);
+  }
 
 document.addEventListener('click', (event) => {
     if(event.target.classList.value == 'card' || event.target.classList.value == 'card white')  {event.target.classList.toggle('white'); --counter;};
@@ -17,12 +30,12 @@ document.addEventListener('click', (event) => {
 document.addEventListener('DOMContentLoaded', function() {
     let cardsNumber = document.getElementById('input');
     let btn = document.getElementById('btn');
-    let timerBlock = document.getElementById('timer');
     cardsNumber.addEventListener('input', () => {
         document.getElementById('div').innerHTML = '';
         cardsNumber.value ? btn.disabled = false : btn.disabled = true;
     }) 
     btn.addEventListener('click', () => {
+        onClick();
         if(!(cardsNumber.value%2==0)) {
             alert ('Введите четное число карточек');
             cardsNumber.value = '';
