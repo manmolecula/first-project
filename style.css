@@ -1,4 +1,4 @@
-.row{
+/* .row{
   display: flex;
   font-size: 150px;
 }
@@ -16,4 +16,24 @@
 }
 .green{
   background-color: green;
+} */
+
+.header{
+  display: flex;
+  justify-content: center;
+}
+.btn{
+  display: flex;
+  justify-content: center;
+}
+.btn-add{
+  align-items: center;
+}
+.search{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.invisible{
+  display: none;
 }
