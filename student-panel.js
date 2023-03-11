@@ -71,8 +71,9 @@
             if(todayMonth-monthOfBirth+1<0) date.textContent = `${studentMas[0].date} ${today - dateOfBirth - 1} лет`
             else date.textContent = `${studentMas[0].date} ${today - dateOfBirth} лет`;
             if(todayMonth-monthOfBirth+1==0 && todayDay-dayOfBirth<0) date.textContent = `${studentMas[0].date} ${today - dateOfBirth - 1} лет`;
-            kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} ${today - parseInt(studentMas[0].admission)} курс`;
-            if(today - parseInt(studentMas[0].admission) > 4) kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} закончил(а) обучение`;
+            if(today - parseInt(studentMas[0].admission) > 4) kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} закончил(а) обучение`
+            else kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} ${today - parseInt(studentMas[0].admission)} курс`;
+            
             tr.append(fio);
             tr.append(faq);
             tr.append(date);
@@ -84,6 +85,9 @@
     let todayMonth = new Date().getMonth();
     let todayDay = new Date().getDate();
     const filter_fio = document.getElementById('search-fio');
+    const filter_search_faculty = document.getElementById('search-faculty');
+    const filter_search_year_of_admission = document.getElementById('search-year-of-admission');
+    const filter_search_year_of_graduation = document.getElementById('search-year-of-graduation');
     const tableBody = document.getElementById('table-body');
     const newStudent = document.getElementById('new-student');
     const form1 = document.getElementById('form1');
@@ -118,8 +122,58 @@
                 studentMas = [];
             }
         }
-        console.log(filter_fio.value);
         if(filter_fio.value == ''){
+            for(let i=0;i<studentMasGen.length;i++){
+                studentMas.push(studentMasGen[i]);
+                appendStudent();
+                studentMas = [];
+            }
+        }
+    })
+    filter_search_faculty.addEventListener('input', ()=>{
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            if(String(studentMasGen[i].faq).trim() == String(filter_search_faculty.value)){
+                studentMas[0] = studentMasGen[i];
+                appendStudent();
+                studentMas = [];
+            }
+        }
+        if(filter_search_faculty.value == ''){
+            for(let i=0;i<studentMasGen.length;i++){
+                studentMas.push(studentMasGen[i]);
+                appendStudent();
+                studentMas = [];
+            }
+        }
+    })
+    filter_search_year_of_admission.addEventListener('input', ()=>{
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            if(String(studentMasGen[i].admission).trim() == String(filter_search_year_of_admission.value)){
+                studentMas[0] = studentMasGen[i];
+                appendStudent();
+                studentMas = [];
+            }
+        }
+        if(filter_search_year_of_admission.value == ''){
+            for(let i=0;i<studentMasGen.length;i++){
+                studentMas.push(studentMasGen[i]);
+                appendStudent();
+                studentMas = [];
+            }
+        }
+    })
+    filter_search_year_of_graduation.addEventListener('input', ()=>{
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            if(String(parseInt(studentMasGen[i].admission) + 4).trim() == String(filter_search_year_of_graduation.value)){
+                studentMas[0] = studentMasGen[i];
+                appendStudent();
+                studentMas = [];
+            }
+        }
+        if(filter_search_year_of_graduation.value == ''){
             for(let i=0;i<studentMasGen.length;i++){
                 studentMas.push(studentMasGen[i]);
                 appendStudent();
