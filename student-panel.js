@@ -68,9 +68,8 @@
             let dateOfBirth = studentMas[0].date.split('-').shift();
             let monthOfBirth = studentMas[0].date.split('-')[1];
             let dayOfBirth = studentMas[0].date.split('-')[2];
-            if(todayMonth-monthOfBirth+1<0) date.textContent = `${studentMas[0].date} ${today - dateOfBirth - 1} лет`
+            if(todayMonth-monthOfBirth+1<0 || (todayMonth-monthOfBirth+1==0 && todayDay-dayOfBirth<0)) date.textContent = `${studentMas[0].date} ${today - dateOfBirth - 1} лет`
             else date.textContent = `${studentMas[0].date} ${today - dateOfBirth} лет`;
-            if(todayMonth-monthOfBirth+1==0 && todayDay-dayOfBirth<0) date.textContent = `${studentMas[0].date} ${today - dateOfBirth - 1} лет`;
             if(today - parseInt(studentMas[0].admission) > 4) kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} закончил(а) обучение`
             else kurs.textContent = `${studentMas[0].admission}-${parseInt(studentMas[0].admission) + 4} ${today - parseInt(studentMas[0].admission)} курс`;
             
@@ -88,6 +87,10 @@
     const filter_search_faculty = document.getElementById('search-faculty');
     const filter_search_year_of_admission = document.getElementById('search-year-of-admission');
     const filter_search_year_of_graduation = document.getElementById('search-year-of-graduation');
+    const name = document.getElementById('name');
+    const facult = document.getElementById('facult');
+    const start = document.getElementById('start');
+    const ages = document.getElementById('ages');
     const tableBody = document.getElementById('table-body');
     const newStudent = document.getElementById('new-student');
     const form1 = document.getElementById('form1');
@@ -102,7 +105,7 @@
     sbmtForm1.addEventListener('click', (e) => {
         e.preventDefault();
         if(fio.value=='' || faq.value =='' || age.value =='' || adm.value=='') return alert('Заполните пустые поля!');
-        studentMas.push({fio:fio.value,faq:faq.value,date:age.value,admission:adm.value});
+        studentMas.push({fio:fio.value.trim(),faq:faq.value.trim(),date:age.value.trim(),admission:adm.value.trim()});
         fio.value='';
         faq.value='';
         age.value='';
@@ -111,6 +114,7 @@
         appendStudent();
         studentMasGen.push(studentMas[0]);
         studentMas = [];
+        console.log(studentMasGen);
     })
     
     filter_fio.addEventListener('input', ()=>{
@@ -179,6 +183,46 @@
                 appendStudent();
                 studentMas = [];
             }
+        }
+    })
+    name.addEventListener('click', ()=>{
+        studentMasGen.sort((x, y) => x.fio.localeCompare(y.fio))
+        console.log(studentMasGen);
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            studentMas.push(studentMasGen[i]);
+            appendStudent();
+            studentMas = [];
+        }
+    })
+    facult.addEventListener('click', ()=>{
+        studentMasGen.sort((x, y) => x.faq - y.faq)
+        console.log(studentMasGen);
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            studentMas.push(studentMasGen[i]);
+            appendStudent();
+            studentMas = [];
+        }
+    })
+    start.addEventListener('click', ()=>{
+        studentMasGen.sort((x, y) => y.date.localeCompare(x.date))
+        console.log(studentMasGen);
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            studentMas.push(studentMasGen[i]);
+            appendStudent();
+            studentMas = [];
+        }
+    })
+    ages.addEventListener('click', ()=>{
+        studentMasGen.sort((x, y) => y.admission - x.admission)
+        console.log(studentMasGen);
+        tableBody.innerHTML = '';
+        for(let i=0;i<studentMasGen.length;i++){
+            studentMas.push(studentMasGen[i]);
+            appendStudent();
+            studentMas = [];
         }
     })
 })();

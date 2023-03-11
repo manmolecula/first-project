@@ -37,3 +37,9 @@
 .invisible{
   display: none;
 }
+#name,
+#facult,
+#start,
+#ages{
+  cursor: pointer;
+}
